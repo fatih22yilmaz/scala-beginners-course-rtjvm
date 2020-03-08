@@ -52,6 +52,7 @@ object Functions extends App {
   println(fibonacci(8))
 
   def testIfPrime(n: Int): Boolean = {
+    @tailrec
     def divideNumberRecursive(divider: Int): Boolean = {
       if (divider >= n - 1) true
       else (n % divider != 0) && divideNumberRecursive(divider + 1)
@@ -62,5 +63,4 @@ object Functions extends App {
 
   private val isPrime: Boolean = testIfPrime(2003)
   println(isPrime)
-
 }
