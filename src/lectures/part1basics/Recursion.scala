@@ -40,6 +40,7 @@ object Recursion extends App {
   //WHEN YOU NEED LOOPS, USE _TAIL_ RECURSION.
 
   def stringConcatenate(small: String, n: Int) = {
+    @tailrec
     def concatenateHelper(big: String, x: Int): String = {
       if (x <= 1) big
       else concatenateHelper(big + " " + small, x - 1)
@@ -52,17 +53,22 @@ object Recursion extends App {
 
   def isPrime(n: Int) = {
     @tailrec
-    def isPrimeHelper(x: Int, isPrime: Boolean): Boolean = {
-      if (isPrime || x >= n) !isPrime
-      else isPrimeHelper(x + 1, (n % x) == 0)
+    def isPrimeHelper(x: Int, isPrime: Boolean, divisor: Int): Boolean = {
+      if (isPrime || x >= n) {
+        println(s"Last divisor was: $divisor")
+        !isPrime
+      }
+      else isPrimeHelper(x + 1, (n % x) == 0, x)
     }
 
-    isPrimeHelper(2, isPrime = false)
+    isPrimeHelper(2, isPrime = false, 2)
   }
 
-  println(isPrime(9))
+  //  println(isPrime(2003))
+  //  println(isPrime(629))
 
   def fibonacci(n: Int) = {
+    @tailrec
     def fibonacciHelper(x: Int, previous: Int, previous2: Int): Int = {
       if (x <= 2) previous + previous2
       else fibonacciHelper(x - 1, previous + previous2, previous)
